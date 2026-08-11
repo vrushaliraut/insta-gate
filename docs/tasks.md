@@ -4,12 +4,12 @@
 
 **Description:** Setup the monorepo, local development environment, CI/CD pipelines with automated testing gates, and base cloud infrastructure on Fly.io.
 
-- [ ] **Story 1.1: Monorepo & Taskfile Initialization**
+- [ x ] **Story 1.1: Monorepo & Taskfile Initialization**
 
-  - [ ] Task 1.1.1: Initialize Git repository with `/backend`, `/frontend`, `/database`, `/deploy` directories.
-  - [ ] Task 1.1.2: Create `Taskfile.yml` with commands: `dev`, `db:migrate`, `db:rollback`, `lint`, `test:unit`, `test:e2e`, `build`.
-  - [ ] Task 1.1.3: Configure Docker Compose for local Postgres 18.4 and Redis with persistent volume mounting.
-  - [ ] Task 1.1.4: Setup `pre-commit` hooks for formatting (gofmt, prettier) and linting.
+  - [ x ] Task 1.1.1: Initialize Git repository with `/backend`, `/frontend`, `/database`, `/deploy` directories.
+  - [ x ] Task 1.1.2: Create `Taskfile.yml` with commands: `dev`, `db:migrate`, `db:rollback`, `lint`, `test:unit`, `test:e2e`, `build`.
+  - [ x ] Task 1.1.3: Configure Docker Compose for local Postgres 18.4 and Redis with persistent volume mounting.
+  - [ x ] Task 1.1.4: Setup `pre-commit` hooks for formatting (gofmt, prettier) and linting.
   - **Test Coverage:** Add a CI step that verifies `task dev` boots successfully without crash.
   - **AC:** Running `task dev` starts backend, frontend, Postgres, and Redis concurrently. `task lint` passes with zero errors.
 
