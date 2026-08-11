@@ -1,16 +1,29 @@
 package config
 
-import "errors"
+import (
+	"errors"
+	"os"
+)
 
-// Config holds the application configuration loaded from the environment.
 type Config struct {
 	Port        string
 	Environment string
 }
 
-// Load reads environment variables and returns a Config.
-// It fails fast if required variables are missing.
 func Load() (*Config, error) {
-	// Stub implementation to ensure the test fails logically
-	return nil, errors.New("not implemented")
+	port, exists := os.LookupEnv("PORT")
+	if !exists || port == "" {
+		return nil, errors.New("missing required environment variable: PORT")
+	}
+
+	env, exists := os.LookupEnv("ENV")
+	if !exists || env == "" {
+		// Defaulting to development if not explicitly set,
+		env = "development"
+	}
+
+	return &Config{
+		Port:        port,
+		Environment: env,
+	}, nil
 }
