@@ -55,28 +55,28 @@ The platform serves four distinct personas. Each persona interacts with a tailor
 
 ### Role-Based Access Control (RBAC) & Visibility
 
-* **Super Admin:** Manages multiple buildings/tenants. Can access billing, configure global data retention policies, and view cross-facility analytics.
-* **Facility Admin:** Scoped to a specific building. Can manage guard accounts, view live occupancy dashboards, force-checkout overstayed visitors, and export daily visitor manifests.
-* **Host (Employee):** Scoped to their own visitors. Can generate passes, approve walk-ins, and view their personal visitor history. Cannot see other employees' visitors.
-* **Security Guard:** Scoped to the verification edge. Can scan passes, view masked profile data (photo, name, host), and trigger check-in/out state changes. No access to PII (phone/address) or historical logs.
+- **Super Admin:** Manages multiple buildings/tenants. Can access billing, configure global data retention policies, and view cross-facility analytics.
+- **Facility Admin:** Scoped to a specific building. Can manage guard accounts, view live occupancy dashboards, force-checkout overstayed visitors, and export daily visitor manifests.
+- **Host (Employee):** Scoped to their own visitors. Can generate passes, approve walk-ins, and view their personal visitor history. Cannot see other employees' visitors.
+- **Security Guard:** Scoped to the verification edge. Can scan passes, view masked profile data (photo, name, host), and trigger check-in/out state changes. No access to PII (phone/address) or historical logs.
 
 ### Dynamic QR & Identity Engine
 
-* **Cryptographic JWT Tokens:** QR codes do not store raw data. They encode a signed JSON Web Token (JWT) that the Go backend decodes. If a user tries to forge a QR code, the signature validation fails instantly.
-* **Custom Branding Studio:** Facility Admins can customize the appearance of the QR passes (colors, company logos embedded in the QR matrix, custom error correction levels).
-* **State Machine Engine:** Passes exist in strict, immutable states: `DRAFT` -> `PENDING` -> `APPROVED` -> `SCANNED_IN` -> `SCANNED_OUT` -> `EXPIRED` / `REVOKED`.
-* **Instant Revocation:** A Host or Admin can click "Revoke" on the dashboard. The Go backend invalidates the token in Redis, rendering the visitor's QR code completely useless within milliseconds.
+- **Cryptographic JWT Tokens:** QR codes do not store raw data. They encode a signed JSON Web Token (JWT) that the Go backend decodes. If a user tries to forge a QR code, the signature validation fails instantly.
+- **Custom Branding Studio:** Facility Admins can customize the appearance of the QR passes (colors, company logos embedded in the QR matrix, custom error correction levels).
+- **State Machine Engine:** Passes exist in strict, immutable states: `DRAFT` -> `PENDING` -> `APPROVED` -> `SCANNED_IN` -> `SCANNED_OUT` -> `EXPIRED` / `REVOKED`.
+- **Instant Revocation:** A Host or Admin can click "Revoke" on the dashboard. The Go backend invalidates the token in Redis, rendering the visitor's QR code completely useless within milliseconds.
 
 ### Advanced Admin Dashboard & Analytics
 
-* **Live Occupancy Heatmaps:** Visual representations of building load. Tracks peak hours to help optimize security guard shift scheduling.
-* **Overstay Alerting System:** If a pass was issued for a 2-hour window and the visitor has not been scanned out by hour 3, the dashboard flags the visitor in red and alerts the Facility Admin and Host.
-* **Granular Audit Trails:** Every action is logged using Go structured logging. Records include: `Timestamp`, `Actor ID`, `Action (e.g., APPROVED_PASS)`, `Target ID`, and `IP Address`.
+- **Live Occupancy Heatmaps:** Visual representations of building load. Tracks peak hours to help optimize security guard shift scheduling.
+- **Overstay Alerting System:** If a pass was issued for a 2-hour window and the visitor has not been scanned out by hour 3, the dashboard flags the visitor in red and alerts the Facility Admin and Host.
+- **Granular Audit Trails:** Every action is logged using Go structured logging. Records include: `Timestamp`, `Actor ID`, `Action (e.g., APPROVED_PASS)`, `Target ID`, and `IP Address`.
 
 ### Security & Data Privacy Compliance
 
-* **Dynamic Data Masking:** The Next.js frontend strictly limits what the Guard persona can see, ensuring compliance with privacy laws by hiding home addresses and personal contact info at the gate.
-* **Automated PII Purging (GDPR/DPDP):** A Go background worker runs nightly, anonymizing visitor records older than 30 days (deleting Name, Phone, and Photo, but keeping the "1 visitor entered" statistic).
+- **Dynamic Data Masking:** The Next.js frontend strictly limits what the Guard persona can see, ensuring compliance with privacy laws by hiding home addresses and personal contact info at the gate.
+- **Automated PII Purging (GDPR/DPDP):** A Go background worker runs nightly, anonymizing visitor records older than 30 days (deleting Name, Phone, and Photo, but keeping the "1 visitor entered" statistic).
 
 ---
 
@@ -138,15 +138,15 @@ The engineering lifecycle is optimized for reliability, utilizing a task runner,
 
 Instead of bash scripts or Makefiles, development is orchestrated via `task`. The `Taskfile.yml` handles:
 
-* `task dev`: Concurrently boots the Go backend, Next.js frontend, and local Postgres/Redis via Docker Compose.
-* `task db:migrate`: Runs strict up/down database schema migrations.
-* `task lint`: Enforces Go `golangci-lint` and TS `eslint` standards.
+- `task dev`: Concurrently boots the Go backend, Next.js frontend, and local Postgres/Redis via Docker Compose.
+- `task db:migrate`: Runs strict up/down database schema migrations.
+- `task lint`: Enforces Go `golangci-lint` and TS `eslint` standards.
 
 ### Quality Assurance & Testing
 
-* **Unit Tests:** Go's native testing framework verifies cryptographic token generation, RBAC permission matrices, and state machine transitions.
-* **End-to-End (E2E) Tests:** Playwright is used to simulate the full multi-persona journey: A simulated "Host" creates a pass -> A simulated "Guard" scans it -> A simulated "Admin" verifies the occupancy count updated.
-* **Structured Logging:** The Go backend utilizes `slog` to emit JSON-formatted logs. This ensures that errors, state changes, and security events are highly searchable and easily parsed by external observability tools.
+- **Unit Tests:** Go's native testing framework verifies cryptographic token generation, RBAC permission matrices, and state machine transitions.
+- **End-to-End (E2E) Tests:** Playwright is used to simulate the full multi-persona journey: A simulated "Host" creates a pass -> A simulated "Guard" scans it -> A simulated "Admin" verifies the occupancy count updated.
+- **Structured Logging:** The Go backend utilizes `slog` to emit JSON-formatted logs. This ensures that errors, state changes, and security events are highly searchable and easily parsed by external observability tools.
 
 ### Deployment Pipeline (GitHub Actions -> Fly.io)
 

@@ -1,0 +1,52 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  foundation-test:
+    name: Verify Story 1.1 Foundation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+
+      - name: Setup Python (for pre-commit)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: AC Check - Run Linting
+        run: task lint
+
+      - name: Test Coverage Check - Verify Dev Boot
+        run: |
+          # Run the dev command
+          task dev
+
+          # Give containers a few seconds to initialize
+          sleep 5
+
+          # Verify the containers are running and did not crash
+          if ! docker ps | grep -q "instagate-postgres"; then
+            echo "Postgres container failed to boot or crashed."
+            exit 1
+          fi
+
+          if ! docker ps | grep -q "instagate-redis"; then
+            echo "Redis container failed to boot or crashed."
+            exit 1
+          fi
+
+          echo "Success: task dev booted infrastructure without crashing."

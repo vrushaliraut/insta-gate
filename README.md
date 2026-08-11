@@ -6,23 +6,23 @@ routing of an enterprise QR platform.
 
 ## 🚀 Key Features
 
-* **Dynamic Cryptographic Identity:** QR codes encode cryptographically signed JWTs that are validated in sub-50ms at
+- **Dynamic Cryptographic Identity:** QR codes encode cryptographically signed JWTs that are validated in sub-50ms at
   the edge.
-* **Strict Role-Based Access Control (RBAC):** Distinct interfaces and data scopes for Super Admins, Facility Admins,
+- **Strict Role-Based Access Control (RBAC):** Distinct interfaces and data scopes for Super Admins, Facility Admins,
   Hosts (Employees), and Security Guards.
-* **Conditional Routing:** A single QR code dynamically routes users to a check-in pass (mobile) or a facility map (
+- **Conditional Routing:** A single QR code dynamically routes users to a check-in pass (mobile) or a facility map (
   desktop).
-* **Live Occupancy & Telemetry:** WebSocket-powered dashboards provide real-time heatmaps and overstay alerts.
-* **Privacy by Design:** Granular data masking at the security gate and automated background workers for GDPR/DPDP
+- **Live Occupancy & Telemetry:** WebSocket-powered dashboards provide real-time heatmaps and overstay alerts.
+- **Privacy by Design:** Granular data masking at the security gate and automated background workers for GDPR/DPDP
   compliant PII purging.
 
 ## 🛠️ Technology Stack
 
-* **Backend:** Go 1.26.5, **Go Fiber v3.4.0** (High-performance web framework), `slog` (structured JSON logging).
-* **Frontend:** Next.js 16.3 (App Router), React 19.2, TypeScript 7.0, Tailwind CSS, Playwright (E2E testing).
-* **Database & Caching:** PostgreSQL 18.4 (`pgxpool`, `golang-migrate`), Redis (Session state & revocation blocklists).
-* **Infrastructure:** Docker, GitHub Actions, Fly.io (Global Edge Network).
-* **Orchestration:** `Task` (Taskfile).
+- **Backend:** Go 1.26.5, **Go Fiber v3.4.0** (High-performance web framework), `slog` (structured JSON logging).
+- **Frontend:** Next.js 16.3 (App Router), React 19.2, TypeScript 7.0, Tailwind CSS, Playwright (E2E testing).
+- **Database & Caching:** PostgreSQL 18.4 (`pgxpool`, `golang-migrate`), Redis (Session state & revocation blocklists).
+- **Infrastructure:** Docker, GitHub Actions, Fly.io (Global Edge Network).
+- **Orchestration:** `Task` (Taskfile).
 
 ## 📂 Repository Structure
 
@@ -39,3 +39,4 @@ insta-gate/
 │   ├── features.md# Core Use Cases & Feature List
 │   └── tasks.md   # Master Implementation Plan (Epics & Stories)
 └── Taskfile.yml   # Centralized development task runner
+```
