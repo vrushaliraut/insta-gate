@@ -1,0 +1,38 @@
+version: '3'
+
+tasks:
+  dev:
+    desc: "Boot backend, frontend, Postgres, and Redis concurrently"
+    cmds:
+      - echo "Booting development environment..."
+      # This will be populated with docker-compose and concurrent run commands
+
+  db:migrate:
+    desc: "Apply strict up database migrations"
+    cmds:
+      - echo "Running migrations..."
+
+  db:rollback:
+    desc: "Revert database migrations"
+    cmds:
+      - echo "Rolling back migrations..."
+
+  lint:
+    desc: "Enforce Go golangci-lint and TS eslint standards"
+    cmds:
+      - echo "Running linters..."
+
+  test:unit:
+    desc: "Run backend and frontend unit tests"
+    cmds:
+      - echo "Running unit tests..."
+
+  test:e2e:
+    desc: "Run Playwright multi-persona suites"
+    cmds:
+      - echo "Running E2E tests..."
+
+  build:
+    desc: "Compile Go binary and build Next.js static assets"
+    cmds:
+      - echo "Building production assets..."
