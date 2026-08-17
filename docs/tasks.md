@@ -13,7 +13,7 @@
   - **Test Coverage:** Add a CI step that verifies `task dev` boots successfully without crash.
   - **AC:** Running `task dev` starts backend, frontend, Postgres, and Redis concurrently. `task lint` passes with zero errors.
 
-- [ ] **Story 1.2: Go 1.26.5 Backend Scaffolding**
+- [ x ] **Story 1.2: Go 1.26.5 Backend Scaffolding**
 
   - [ x ] Task 1.2.1: Initialize Go module, setup standard layout (`/cmd`, `/internal`, `/pkg`).
   - [ x ] Task 1.2.2: Implement `log/slog` (JSON formatter) with request ID injection middleware.
@@ -22,11 +22,11 @@
   - **Test Coverage:** Write unit tests for environment loading (missing vars, valid vars) and JSON error formatting.
   - **AC:** Go server boots, connects to local DB/Redis, logs structured JSON, and fails fast if env vars are missing.
 
-- [ ] **Story 1.3: Next.js 16.3 Frontend Scaffolding**
+- [ x ] **Story 1.3: Next.js 16.3 Frontend Scaffolding**
 
-  - [ ] Task 1.3.1: Initialize Next.js 16.3 App Router with TypeScript 7.0 strict mode.
-  - [ ] Task 1.3.2: Setup Tailwind CSS, ESLint, Prettier, and absolute path imports (`@/components`, etc.).
-  - [ ] Task 1.3.3: Configure Next.js standalone output mode for Docker optimization.
+  - [ x ] Task 1.3.1: Initialize Next.js 16.3 App Router with TypeScript 7.0 strict mode.
+  - [ x ] Task 1.3.2: Setup Tailwind CSS, ESLint, Prettier, and absolute path imports (`@/components`, etc.).
+  - [ x ] Task 1.3.3: Configure Next.js standalone output mode for Docker optimization.
   - **Test Coverage:** Setup Jest + React Testing Library. Add a dummy component test to ensure pipeline runs frontend tests.
   - **AC:** Next.js dev server runs, `npm run test` passes dummy test, `npm run build` succeeds with standalone output.
 
