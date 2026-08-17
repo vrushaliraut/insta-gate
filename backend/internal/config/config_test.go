@@ -6,7 +6,7 @@ import (
 	"github.com/vrushaliraut/insta-gate/backend/internal/config"
 )
 
-func TestLoad_Success(t *testing.T) {
+func TestShouldLoadSuccessWithAllRequiredParams(t *testing.T) {
 	// Setup valid environment
 	t.Setenv("PORT", "8080")
 	t.Setenv("ENV", "development")
@@ -25,7 +25,7 @@ func TestLoad_Success(t *testing.T) {
 
 }
 
-func TestLoad_MissingRequiredVars(t *testing.T) {
+func TestShouldLoadMissingRequiredVars(t *testing.T) {
 	// Setup invalid environment (missing PORT)
 	t.Setenv("PORT", "")
 	t.Setenv("ENV", "development")
