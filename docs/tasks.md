@@ -30,11 +30,11 @@
   - **Test Coverage:** Setup Jest + React Testing Library. Add a dummy component test to ensure pipeline runs frontend tests.
   - **AC:** Next.js dev server runs, `npm run test` passes dummy test, `npm run build` succeeds with standalone output.
 
-- [ ] **Story 1.4: GitHub Actions CI/CD & Fly.io Deployment**
-  - [ ] Task 1.4.1: Create GitHub Actions PR workflow: lint, unit test, build. Block merge on failure.
-  - [ ] Task 1.4.2: Create GitHub Actions `main` workflow: build Docker images, push to GitHub Container Registry.
-  - [ ] Task 1.4.3: Create `fly.toml` for backend and frontend with health checks and rolling deployment strategy.
-  - [ ] Task 1.4.4: Provision Fly.io Postgres 18.4 cluster and Redis. Configure secrets via Fly CLI.
+- [ x ] **Story 1.4: GitHub Actions CI/CD & Fly.io Deployment**
+  - [ x ] Task 1.4.1: Create GitHub Actions PR workflow: lint, unit test, build. Block merge on failure.
+  - [ x ] Task 1.4.2: Create GitHub Actions `main` workflow: build Docker images, push to GitHub Container Registry.
+  - [ x ] Task 1.4.3: Create `fly.toml` for backend and frontend with health checks and rolling deployment strategy.
+  - [ x ] Task 1.4.4: Provision Fly.io Postgres 18.4 cluster and Redis. Configure secrets via Fly CLI.
   - **Test Coverage:** Add a manual dispatch step in GitHub Actions to run a smoke test against the deployed Fly.io `/healthz` endpoint.
   - **AC:** Push to `main` triggers zero-downtime deployment to Fly.io; health checks pass.
 
