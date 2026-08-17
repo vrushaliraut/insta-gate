@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -7,19 +7,30 @@ on:
     branches: [ main ]
 
 jobs:
-  foundation-test:
-    name: Verify Story 1.1 Foundation
+  lint-and-test:
+    name: Lint & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+
+      - name: Add Go binaries to PATH
+        run: echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
       - name: Install Task
         uses: arduino/setup-task@v2
         with:
           version: 3.x
 
-      - name: Setup Python (for pre-commit)
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
@@ -27,26 +38,51 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
 
-      - name: AC Check - Run Linting
+      - name: Run Linting
         run: task lint
 
-      - name: Test Coverage Check - Verify Dev Boot
+      - name: Verify Backend Build
+        working-directory: ./backend
+        run: go build -v ./cmd/api
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Run Frontend Tests
+        working-directory: ./frontend
         run: |
-          # Run the dev command
-          task dev
+          npm ci
+          npm run test
 
-          # Give containers a few seconds to initialize
-          sleep 5
+  deploy-backend:
+    name: Deploy Backend to Fly.io
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    # ONLY run deployment if we are pushing/merging to the main branch
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy Backend
+        working-directory: ./backend
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-          # Verify the containers are running and did not crash
-          if ! docker ps | grep -q "instagate-postgres"; then
-            echo "Postgres container failed to boot or crashed."
-            exit 1
-          fi
-
-          if ! docker ps | grep -q "instagate-redis"; then
-            echo "Redis container failed to boot or crashed."
-            exit 1
-          fi
-
-          echo "Success: task dev booted infrastructure without crashing."
+  deploy-frontend:
+    name: Deploy Frontend to Fly.io
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy Frontend
+        working-directory: ./frontend
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -4,37 +4,37 @@
 
 **Description:** Setup the monorepo, local development environment, CI/CD pipelines with automated testing gates, and base cloud infrastructure on Fly.io.
 
-- [ ] **Story 1.1: Monorepo & Taskfile Initialization**
+- [ x ] **Story 1.1: Monorepo & Taskfile Initialization**
 
-  - [ ] Task 1.1.1: Initialize Git repository with `/backend`, `/frontend`, `/database`, `/deploy` directories.
-  - [ ] Task 1.1.2: Create `Taskfile.yml` with commands: `dev`, `db:migrate`, `db:rollback`, `lint`, `test:unit`, `test:e2e`, `build`.
-  - [ ] Task 1.1.3: Configure Docker Compose for local Postgres 18.4 and Redis with persistent volume mounting.
-  - [ ] Task 1.1.4: Setup `pre-commit` hooks for formatting (gofmt, prettier) and linting.
+  - [ x ] Task 1.1.1: Initialize Git repository with `/backend`, `/frontend`, `/database`, `/deploy` directories.
+  - [ x ] Task 1.1.2: Create `Taskfile.yml` with commands: `dev`, `db:migrate`, `db:rollback`, `lint`, `test:unit`, `test:e2e`, `build`.
+  - [ x ] Task 1.1.3: Configure Docker Compose for local Postgres 18.4 and Redis with persistent volume mounting.
+  - [ x ] Task 1.1.4: Setup `pre-commit` hooks for formatting (gofmt, prettier) and linting.
   - **Test Coverage:** Add a CI step that verifies `task dev` boots successfully without crash.
   - **AC:** Running `task dev` starts backend, frontend, Postgres, and Redis concurrently. `task lint` passes with zero errors.
 
-- [ ] **Story 1.2: Go 1.26.5 Backend Scaffolding**
+- [ x ] **Story 1.2: Go 1.26.5 Backend Scaffolding**
 
-  - [ ] Task 1.2.1: Initialize Go module, setup standard layout (`/cmd`, `/internal`, `/pkg`).
-  - [ ] Task 1.2.2: Implement `log/slog` (JSON formatter) with request ID injection middleware.
-  - [ ] Task 1.2.3: Implement environment variable loading (`godotenv`/`viper`) with validation (fail fast on missing vars).
-  - [ ] Task 1.2.4: Implement standard JSON error response struct (`{"error": {"code": "", "message": ""}}`).
+  - [ x ] Task 1.2.1: Initialize Go module, setup standard layout (`/cmd`, `/internal`, `/pkg`).
+  - [ x ] Task 1.2.2: Implement `log/slog` (JSON formatter) with request ID injection middleware.
+  - [ x ] Task 1.2.3: Implement environment variable loading (`godotenv`/`viper`) with validation (fail fast on missing vars).
+  - [ x ] Task 1.2.4: Implement standard JSON error response struct (`{"error": {"code": "", "message": ""}}`).
   - **Test Coverage:** Write unit tests for environment loading (missing vars, valid vars) and JSON error formatting.
   - **AC:** Go server boots, connects to local DB/Redis, logs structured JSON, and fails fast if env vars are missing.
 
-- [ ] **Story 1.3: Next.js 16.3 Frontend Scaffolding**
+- [ x ] **Story 1.3: Next.js 16.3 Frontend Scaffolding**
 
-  - [ ] Task 1.3.1: Initialize Next.js 16.3 App Router with TypeScript 7.0 strict mode.
-  - [ ] Task 1.3.2: Setup Tailwind CSS, ESLint, Prettier, and absolute path imports (`@/components`, etc.).
-  - [ ] Task 1.3.3: Configure Next.js standalone output mode for Docker optimization.
+  - [ x ] Task 1.3.1: Initialize Next.js 16.3 App Router with TypeScript 7.0 strict mode.
+  - [ x ] Task 1.3.2: Setup Tailwind CSS, ESLint, Prettier, and absolute path imports (`@/components`, etc.).
+  - [ x ] Task 1.3.3: Configure Next.js standalone output mode for Docker optimization.
   - **Test Coverage:** Setup Jest + React Testing Library. Add a dummy component test to ensure pipeline runs frontend tests.
   - **AC:** Next.js dev server runs, `npm run test` passes dummy test, `npm run build` succeeds with standalone output.
 
-- [ ] **Story 1.4: GitHub Actions CI/CD & Fly.io Deployment**
-  - [ ] Task 1.4.1: Create GitHub Actions PR workflow: lint, unit test, build. Block merge on failure.
-  - [ ] Task 1.4.2: Create GitHub Actions `main` workflow: build Docker images, push to GitHub Container Registry.
-  - [ ] Task 1.4.3: Create `fly.toml` for backend and frontend with health checks and rolling deployment strategy.
-  - [ ] Task 1.4.4: Provision Fly.io Postgres 18.4 cluster and Redis. Configure secrets via Fly CLI.
+- [ x ] **Story 1.4: GitHub Actions CI/CD & Fly.io Deployment**
+  - [ x ] Task 1.4.1: Create GitHub Actions PR workflow: lint, unit test, build. Block merge on failure.
+  - [ x ] Task 1.4.2: Create GitHub Actions `main` workflow: build Docker images, push to GitHub Container Registry.
+  - [ x ] Task 1.4.3: Create `fly.toml` for backend and frontend with health checks and rolling deployment strategy.
+  - [ x ] Task 1.4.4: Provision Fly.io Postgres 18.4 cluster and Redis. Configure secrets via Fly CLI.
   - **Test Coverage:** Add a manual dispatch step in GitHub Actions to run a smoke test against the deployed Fly.io `/healthz` endpoint.
   - **AC:** Push to `main` triggers zero-downtime deployment to Fly.io; health checks pass.
 

@@ -5,13 +5,13 @@ tasks:
     desc: "Boot backend, frontend, Postgres, and Redis concurrently"
     cmds:
       - echo "Booting local infrastructure..."
-      - docker-compose up -d
+      - docker compose up -d
       # Note: We will add concurrent Go and Next.js startup commands here in Epics 1.2 & 1.3
 
   infra:down:
     desc: "Spin down local infrastructure"
     cmds:
-      - docker-compose down
+      - docker compose down
 
   db:migrate:
     desc: "Apply strict up database migrations"
