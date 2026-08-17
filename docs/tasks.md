@@ -15,10 +15,10 @@
 
 - [ ] **Story 1.2: Go 1.26.5 Backend Scaffolding**
 
-  - [ ] Task 1.2.1: Initialize Go module, setup standard layout (`/cmd`, `/internal`, `/pkg`).
-  - [ ] Task 1.2.2: Implement `log/slog` (JSON formatter) with request ID injection middleware.
-  - [ ] Task 1.2.3: Implement environment variable loading (`godotenv`/`viper`) with validation (fail fast on missing vars).
-  - [ ] Task 1.2.4: Implement standard JSON error response struct (`{"error": {"code": "", "message": ""}}`).
+  - [ x ] Task 1.2.1: Initialize Go module, setup standard layout (`/cmd`, `/internal`, `/pkg`).
+  - [ x ] Task 1.2.2: Implement `log/slog` (JSON formatter) with request ID injection middleware.
+  - [ x ] Task 1.2.3: Implement environment variable loading (`godotenv`/`viper`) with validation (fail fast on missing vars).
+  - [ x ] Task 1.2.4: Implement standard JSON error response struct (`{"error": {"code": "", "message": ""}}`).
   - **Test Coverage:** Write unit tests for environment loading (missing vars, valid vars) and JSON error formatting.
   - **AC:** Go server boots, connects to local DB/Redis, logs structured JSON, and fails fast if env vars are missing.
 
