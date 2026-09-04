@@ -42,10 +42,10 @@
 
 **Description:** Design and implement the PostgreSQL schema, migrations, and Redis connection pooling.
 
-- [ ] **Story 2.1: PostgreSQL Migrations & Connection Pool**
+- [ x ] **Story 2.1: PostgreSQL Migrations & Connection Pool**
 
-  - [ ] Task 2.1.1: Integrate `golang-migrate` and setup migration file structure.
-  - [ ] Task 2.1.2: Implement `pgxpool` connection wrapper with context timeouts.
+  - [ x ] Task 2.1.1: Integrate `golang-migrate` and setup migration file structure.
+  - [ x ] Task 2.1.2: Implement `pgxpool` connection wrapper with context timeouts.
   - **Test Coverage:** Write integration tests using a Dockerized Postgres test container to verify migrations apply cleanly up and down.
   - **AC:** `task db:migrate` applies schema; `task db:rollback` reverts it without manual DB deletion.
 
