@@ -12,16 +12,19 @@ tasks:
     desc: "Spin down local infrastructure"
     cmds:
       - docker compose down
+  db:create:
+    desc: "Create a new database migration file"
+    cmds:
+      - migrate create -ext sql -dir backend/migrations -seq {{.CLI_ARGS}}
 
   db:migrate:
-    desc: "Apply strict up database migrations"
+    desc: "Run database migrations up"
     cmds:
-      - echo "Running migrations... (Tooling to be configured in Epic 2)"
-
+      - migrate -path backend/migrations -database "$DATABASE_URL" up
   db:rollback:
-    desc: "Revert database migrations"
+    desc: "Rollback database migrations"
     cmds:
-      - echo "Rolling back migrations... (Tooling to be configured in Epic 2)"
+      - migrate -path backend/migrations -database "$DATABASE_URL" down 1
 
   lint:
     desc: "Enforce Go golangci-lint and TS eslint standards"
